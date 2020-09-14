@@ -1,5 +1,6 @@
 import mutagen
 import logging
+from musicfile.musicfile import MusicFile
 from enum import Enum
 
 class AudioFormat(Enum):
@@ -12,7 +13,7 @@ class UnsupportedAudioFormat(Exception):
         self._message = message
         
 
-def file_info(file_path):
+def music_file_factory(file_path):
     try:
         metadata: mutagen.FileType = mutagen.File(file_path)
         info = str(metadata.info)
@@ -31,7 +32,7 @@ def file_info(file_path):
         else:
            raise UnsupportedAudioFormat(metadata.info)
          
-        return {"audioformat": audioformat, "filepath": file_path, **tags}
+        return MusicFile(file_path, audioformat)
 
     except mutagen.MutagenError as mutagen_error:
         logging.error(mutagen_error)
