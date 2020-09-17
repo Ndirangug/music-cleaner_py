@@ -33,9 +33,7 @@ def lookup(musicbrainz_id):
         raise MusicBrainzLookupError(f"Something went wrong with the request: {web_service_error}")
 
 
-def parse_musicbrainz_result(musicbrainz_dict):
-    recording = musicbrainz_dict["recording"]
-
+def parse_musicbrainz_result(recording):
     mbid = recording["id"]
     title = recording["title"]
     length = recording["length"]

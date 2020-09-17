@@ -25,6 +25,6 @@ def test_directory_loader():
         "/media/georgen/LOCAL DISK/George_Ndirangu/Learning/py/music-cleaner/test-res/preserve/Steffany_Gretzinger_This_Close_with_Chandler_Moore_Offi.hd.mp3",
     ]
 
-    actual = dloader.load_file_names(directory)
+    actual = dloader.load_file_paths(directory)
 
     expected.sort() == actual.sort()

@@ -1,23 +1,29 @@
 import logging
+from typing import Optional
 
 import search.accoustid_search as accoustid
 import utils.directory_loader as dloader
-from utils.file_loader import music_file_factory, CouldNotMakeMusicFile
-from utils.queue import Queue, QueueItem
+from musicfile.musicfile import MusicFile
+from search import musicbrainz_search
+from utils.queue import Queue, QueueItemStatus
 
 # directory = "/media/georgen/LOCAL DISK/George_Ndirangu/Learning/py/music-cleaner/test-res/tinker"
 directory = "/media/georgen/LOCAL DISK/George_Ndirangu/Music/"
 
-list_of_paths = dloader.load_file_names(directory)
+list_of_paths = dloader.load_file_paths(directory)
 
 processing_queue = Queue()
 
-for path in list_of_paths:
-    try:
-        music_file = music_file_factory(path)
-        processing_queue.push(QueueItem(music_file))
-    except CouldNotMakeMusicFile as could_not_make_musicfile_exception:
-        logging.warning(could_not_make_musicfile_exception)
+Queue.populate_queue(list_of_paths, processing_queue)
 
 for item in processing_queue.get_items():
-    accoustid.search(item.music_file)
+    item.update_status(QueueItemStatus.PROCESSING)
+    result: Optional[MusicFile] = accoustid.search(item.music_file)
+
+    if result is not None:
+        item.update_status(QueueItemStatus.SUCCESS)
+        # pp(result)
+    else:
+        # fallback to the next searching method
+        logging.info("fallback to the next searching method ")
+        result = musicbrainz_search.search(item.music_file)
