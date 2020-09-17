@@ -2,8 +2,9 @@ import logging
 
 import acoustid
 
-import search.musicbrainz_search as mb
+import search.musicbrainz.musicbrainz_search as mb
 from musicfile.musicfile import MusicFile
+from utils.update_musicfile import update_musicfile
 
 # TODO use .env
 apikey = "xZI2oVLvE7"
@@ -25,16 +26,7 @@ def search(musicfile: MusicFile):
 
         if len(musicfile.musicbrainz_id) > 1:
             lookup_result = mb.lookup(musicfile.musicbrainz_id)
-            parsed_results = mb.parse_musicbrainz_result(lookup_result["recording"])
-
-            musicfile.title = parsed_results['title']
-            musicfile.album = parsed_results['album']
-            musicfile.album_artist = parsed_results['album_artist']
-            musicfile.contributing_artists = parsed_results['contributing_artists']
-            musicfile.release_date = parsed_results['release_date']
-            musicfile.tracknumber = parsed_results['tracknumber']
-            musicfile.tags = parsed_results['tags']
-            musicfile.length = parsed_results['length']
+            update_musicfile(musicfile, lookup_result["recording"])
 
         else:
             raise AccoustIdNoMatch("No match found")
@@ -56,6 +48,10 @@ def search(musicfile: MusicFile):
         logging.warning(f"Accoustid search was successful but an error was encountered while looking up recording "
                         f"details. Exception: {musicbrainz_lookup_error}")
         return None
+
+    except acoustid.WebServiceError as web_service_error:
+        logging.warning(f"There was an error probably a network one {web_service_error}")
+        return web_service_error
 
 
 def get_musicbrainz_id(musicfile: MusicFile):
