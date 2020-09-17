@@ -1,4 +1,5 @@
 from enum import Enum
+
 from musicfile.musicfile import MusicFile
 
 
@@ -19,7 +20,6 @@ class QueueItem:
 
 
 class Queue:
-
 
     def __init__(self, items=list()):
         self.items = items
