@@ -1,8 +1,8 @@
 import logging
 
-from musicfile.musicfile import MusicFile
 import musicbrainzngs
-import pprint
+
+from musicfile.musicfile import MusicFile
 
 
 class MusicBrainzLookupError(Exception):
@@ -34,12 +34,12 @@ def lookup(musicbrainz_id):
         raise MusicBrainzLookupError("Something went wrong with the request: %s" % exc)
 
 
-def extract_from_dict(musicbrainz_dict):
+def parse_musicbrainz_result(musicbrainz_dict):
     recording = musicbrainz_dict["recording"]
 
     # for key in recording:
     #     print(key)
-    #     print(recording[key])
+    #     pprint.pprint(recording[key])
     #     print()
 
     mbid = recording["id"]
@@ -47,7 +47,10 @@ def extract_from_dict(musicbrainz_dict):
     length = recording["length"]
     contributing_artists = []
     album_artist = ""
+    album = ""
     tags = []
+    tracknum = 0
+    release_date = ""
 
     for artist_credit in recording["artist-credit"]:
         try:
@@ -55,4 +58,13 @@ def extract_from_dict(musicbrainz_dict):
         except TypeError as exec:
             logging.warning(artist_credit, exec.__cause__)
 
-    print(mbid, title, length, contributing_artists, album_artist)
+    release = recording['release-list'][0]
+    album_artist = release['artist-credit-phrase']
+    release_date = release['date']
+    album = release['title']
+    tracknum = release['medium-list'][0]['track-list'][0]['position']
+
+    if album_artist == "Various Artists":
+        album_artist = contributing_artists[0]
+
+    print(mbid, title, length, contributing_artists, album_artist, album, tracknum, release_date)

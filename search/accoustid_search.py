@@ -1,7 +1,9 @@
-import acoustid
-from musicfile.musicfile import MusicFile
-import search.musicbrainz_search as mb
 import logging
+
+import acoustid
+
+import search.musicbrainz_search as mb
+from musicfile.musicfile import MusicFile
 
 # TODO use .env
 apikey = "xZI2oVLvE7"
@@ -22,7 +24,7 @@ def search(musicfile: MusicFile):
 
     if len(musicfile.musicbrainz_id) > 1:
         lookup_result = mb.lookup(musicfile.musicbrainz_id)
-        mb.extract_from_dict(lookup_result)
+        mb.parse_musicbrainz_result(lookup_result)
         # TODO extract results
     else:
         logging.warning("%s", AccoustIdNoMatch)
