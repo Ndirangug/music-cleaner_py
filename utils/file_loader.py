@@ -1,9 +1,9 @@
 import mutagen
-import logging
+
 from musicfile.musicfile import MusicFile, AudioFormat, UnsupportedAudioFormat
 
 
-class CouldMakeMusicFile(Exception):
+class CouldNotMakeMusicFile(Exception):
     def __init__(self, message=""):
         self._message = message
 
@@ -31,6 +31,8 @@ def music_file_factory(file_path):
             return MusicFile(file_path, audioformat)
 
         else:
-            return CouldMakeMusicFile(file_path + " metadata.info empty")
+            return CouldNotMakeMusicFile(f"Mutagen apparently read(or tried to) file but mutagen.File(file_path) "
+                                         f"returned None instead of FileType. \n Filepath: {file_path}")
     except mutagen.MutagenError as mutagen_error:
-        return CouldMakeMusicFile("%s \n %s", file_path, mutagen_error)
+        return CouldNotMakeMusicFile(f"A mutagen error occurred. File not read successfully. File: {file_path} \n "
+                                     f"MutagenError: {mutagen_error}")

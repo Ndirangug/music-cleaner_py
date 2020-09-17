@@ -1,5 +1,4 @@
 import logging
-from pprint import pprint
 
 import acoustid
 
@@ -27,9 +26,14 @@ def search(musicfile: MusicFile):
         if len(musicfile.musicbrainz_id) > 1:
             lookup_result = mb.lookup(musicfile.musicbrainz_id)
             parsed_results = mb.parse_musicbrainz_result(lookup_result)
-            pprint(parsed_results)
-            print()
-            # write results into musicfile
+            musicfile.title = parsed_results['title']
+            musicfile.album = parsed_results['album']
+            musicfile.album_artist = parsed_results['album_artist']
+            musicfile.contributing_artists = parsed_results['contributing_artists']
+            musicfile.release_date = parsed_results['release_date']
+            musicfile.tracknumber = parsed_results['tracknumber']
+            musicfile.tags = parsed_results['tags']
+            musicfile.length = parsed_results['length']
 
         else:
             raise AccoustIdNoMatch("No match found")
