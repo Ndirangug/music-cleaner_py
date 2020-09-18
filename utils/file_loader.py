@@ -31,8 +31,11 @@ def music_file_factory(file_path):
             return MusicFile(file_path, audioformat)
 
         else:
-            return CouldNotMakeMusicFile(f"Mutagen apparently read(or tried to) file but mutagen.File(file_path) "
-                                         f"returned None instead of FileType. \n Filepath: {file_path}")
+            raise CouldNotMakeMusicFile(f"Mutagen apparently read(or tried to) file but mutagen.File(file_path) "
+                                        f"returned None instead of FileType. \n Filepath: {file_path}")
     except mutagen.MutagenError as mutagen_error:
-        return CouldNotMakeMusicFile(f"A mutagen error occurred. File not read successfully. File: {file_path} \n "
-                                     f"MutagenError: {mutagen_error}")
+        raise CouldNotMakeMusicFile(f"A mutagen error occurred. File not read successfully. File: {file_path} \n "
+                                    f"MutagenError: {mutagen_error.args}")
+    except UnsupportedAudioFormat as unsupported_audio_format:
+        raise CouldNotMakeMusicFile(f"Encountered an unsupported file format. File: {file_path} \n "
+                                    f"UnsupportedAudioFormat: {unsupported_audio_format.args}")

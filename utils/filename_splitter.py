@@ -15,6 +15,8 @@ def split(filename: str):
         range(len(filename_array) + 1), r=2)]
     combinations_from_file_name.sort(key=length_sort, reverse=True)
 
+    combinations_from_file_name = [" ".join(combination) for combination in combinations_from_file_name]
+
     return combinations_from_file_name
 
 

@@ -3,9 +3,9 @@ import utils.filename_splitter as fsplitter
 
 def test_split():
     text = "a boy was going"
-    expected = ["a", "boy", "was", "going"]
+    expected = ["a boy was going", "a boy was", "boy was going", "a boy", "boy was", "was going", "a", "boy", "was",
+                "going"]
     actual = fsplitter.split(text)
-
     assert expected == actual
 
 

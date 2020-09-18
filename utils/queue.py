@@ -45,8 +45,8 @@ class Queue:
         self.sorted = True
 
     @staticmethod
-    def populate_queue(list, queue):
-        for path in list:
+    def populate_queue(_list, queue):
+        for path in _list:
             try:
                 music_file = music_file_factory(path)
                 queue.push(QueueItem(music_file))

@@ -24,15 +24,15 @@ def search(musicfile: MusicFile):
     iterations = 0
 
     for fragment in file_name_fragments:
-        if iterations > 2:
-            logging.warning("Crossed two iterations...moving on")
+        if iterations > 5:
+            logging.warning("Crossed 5 iterations...moving on")
             break
         iterations += 1
 
         try:
             result = musicbrainzngs.search_recordings(fragment)
 
-            found_valid_match, recording = validate_result(result)
+            found_valid_match, recording = validate_result(result, fragment)
             if found_valid_match:
                 update_musicfile(musicfile, recording)
                 return musicfile
