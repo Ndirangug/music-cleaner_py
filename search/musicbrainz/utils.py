@@ -1,7 +1,7 @@
 import logging
 
 
-def validate_result(result, fragment, ):
+def validate_result(result, fragment, fragments):
     print("now validating")
     score_cache = 0
     recording_to_return = None
@@ -23,7 +23,7 @@ def validate_result(result, fragment, ):
             if score_cache == 100:
                 print("found score 100")
                 # TODO check if the artist and album match any entry in fragments
-                if title in fragment or artist in fragment or album in fragment:
+                if title in fragments:
                     break
 
     if score_cache < 90:
@@ -31,7 +31,7 @@ def validate_result(result, fragment, ):
         found_valid = False
         logging.warning("score was less than 90")
 
-    if title in fragment or artist in fragment or album in fragment:
+    if title in fragments:
         pass
     else:
         recording_to_return = None

@@ -32,7 +32,7 @@ def search(musicfile: MusicFile):
         try:
             result = musicbrainzngs.search_recordings(fragment)
 
-            found_valid_match, recording = validate_result(result, fragment)
+            found_valid_match, recording = validate_result(result, fragment, file_name_fragments)
             if found_valid_match:
                 update_musicfile(musicfile, recording)
                 return musicfile
