@@ -3,6 +3,8 @@ import os
 import re
 from itertools import combinations
 
+from beeprint import pp
+
 
 def length_sort(text):
     return len(text)
@@ -11,6 +13,9 @@ def length_sort(text):
 def split(filename: str):
     filename = cleanup(filename)
     filename_array = filename.split(' ')
+    pp(filename_array)
+    print()
+
     combinations_from_file_name = [filename_array[x:y] for x, y in combinations(
         range(len(filename_array) + 1), r=2)]
     combinations_from_file_name.sort(key=length_sort, reverse=True)
@@ -32,4 +37,5 @@ def cleanup(filename):
 def get_file_name(absolute_path):
     filename = ntpath.basename(absolute_path)
     filename = os.path.splitext(filename)[0]
+
     return filename

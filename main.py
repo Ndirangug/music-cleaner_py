@@ -11,11 +11,13 @@ from musicfile.musicfile import MusicFile
 from search.musicbrainz import musicbrainz_search
 from utils.queue import Queue, QueueItemStatus
 
-# directory = "/media/georgen/LOCAL DISK/George_Ndirangu/Learning/py/music-cleaner/test-res/tinker"
-directories = ["/media/georgen/LOCAL DISK/George_Ndirangu/Music/",
-               "/media/georgen/LOCAL DISK/George_Ndirangu/Videos/Music/"]
+directories = [
+    # "/media/georgen/LOCAL DISK/George_Ndirangu/Music/",
+    # "/media/georgen/LOCAL DISK/George_Ndirangu/Videos/Music/",
+    "/media/georgen/LOCAL DISK/George_Ndirangu/Learning/py/music-cleaner/test-res/tinker"
+]
 list_of_paths = []
-# TODO directories
+
 
 for directory in directories:
     list_of_paths += dloader.load_file_paths(directory)
@@ -46,6 +48,6 @@ for item in processing_queue.get_items():
                 f"Network error encountered. Will try to handle this another day.For now moving on \n {result}")
         else:
             item.update_status(QueueItemStatus.FAILED)
-            logging.warning(f"Both accoustid and mb failed for file {item.music_file.file_path}. Maybe check network")
+            logging.warning(f"Both accoustid and mb failed for file {item.music_file.file_path}.")
 
 pp(processing_queue)
