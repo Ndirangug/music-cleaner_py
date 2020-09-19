@@ -4,7 +4,7 @@ import musicbrainzngs
 
 import utils.filename_splitter as fsplitter
 from musicfile.musicfile import MusicFile
-from search.musicbrainz.utils import validate_result
+from search.musicbrainz.utils.validate_result import validate_result
 from utils.inspect_filename import check_filename_not_useful, FilenameNotUseful
 from utils.update_musicfile import update_musicfile
 
