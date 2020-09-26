@@ -1,3 +1,6 @@
+import logging
+
+
 def write(audio, music_file):
     audio["title"] = music_file.title
     audio["albumartist"] = music_file.album_artist
@@ -8,4 +11,7 @@ def write(audio, music_file):
     audio["date"] = music_file.release_date
     audio["musicbrainz_trackid"] = music_file.musicbrainz_id
 
-    audio.save()
+    try:
+        audio.save()
+    except IndexError as index_error:
+        logging.warning(f"{index_error} \n {index_error.__cause__}")
