@@ -31,8 +31,8 @@ class Queue:
     def push(self, item: QueueItem):
         self.items.append(item)
 
-    def pop(self, index):
-        self.items.pop(index)
+    def remove(self, item):
+        self.items.remove(item)
 
     def get_item(self, index: int) -> QueueItem:
         return self.items[index]

@@ -3,6 +3,7 @@
     <words>
       <w>accoust</w>
       <w>accoustid</w>
+      <w>albumartist</w>
       <w>apikey</w>
       <w>asbury</w>
       <w>audioformat</w>
@@ -17,7 +18,10 @@
       <w>musicbrainzngs</w>
       <w>musicfile</w>
       <w>ndirangu</w>
+      <w>trackid</w>
       <w>tracknumber</w>
+      <w>vorbis</w>
+      <w>yaay</w>
     </words>
   </dictionary>
 </component>

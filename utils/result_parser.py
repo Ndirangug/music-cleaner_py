@@ -7,6 +7,7 @@ def parse_musicbrainz_result(recording):
     album_artist = ""
     album = ""
     contributing_artists = []
+    artist_credit_phrase = ""
     tracknumber = ""
     release_date = ""
     length = ""
@@ -17,6 +18,11 @@ def parse_musicbrainz_result(recording):
         mbid = recording["id"]
         title = recording["title"]
         length = recording["length"]
+
+        try:
+            artist_credit_phrase = recording['artist-credit-phrase']
+        except KeyError as key_error:
+            logging.warning(f"Key {key_error.args} not found .No biggie just ignoring and moving ahead.")
 
         for artist_credit in recording["artist-credit"]:
             try:
@@ -40,5 +46,5 @@ def parse_musicbrainz_result(recording):
 
     finally:
         return {"mbid": mbid, "title": title, "album": album, "album_artist": album_artist,
-                "contributing_artists": contributing_artists, "tracknumber": tracknumber, "release_date": release_date,
-                "length": length, "tags": tags}
+                "contributing_artists": contributing_artists, "artist_credit_phrase": artist_credit_phrase,
+                "tracknumber": tracknumber, "release_date": release_date, "length": length, "tags": tags}
