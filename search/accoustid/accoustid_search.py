@@ -34,23 +34,23 @@ def search(musicfile: MusicFile):
         return musicfile
 
     except acoustid.FingerprintGenerationError as fingerprint_generation_error:
-        logging.warning(f"When attempting to generate fingerprint for file {musicfile.file_path} the following error "
+        print(f"WARNING: When attempting to generate fingerprint for file {musicfile.file_path} the following error "
                         f"occurred {AccoustLookupError(fingerprint_generation_error.__str__())}")
         return None
 
     except AccoustIdNoMatch as accoust_id_no_match_exception:
-        logging.warning(
-            f"A search was probably performed for file {musicfile.file_path} but no conclusive results returned. "
+        print(
+            f"WARNING: A search was probably performed for file {musicfile.file_path} but no conclusive results returned. "
             f"Exception: {accoust_id_no_match_exception}")
         return None
 
     except mb.MusicBrainzLookupError as musicbrainz_lookup_error:
-        logging.warning(f"Accoustid search was successful but an error was encountered while looking up recording "
+        print(f"WARNING: Accoustid search was successful but an error was encountered while looking up recording "
                         f"details. Exception: {musicbrainz_lookup_error}")
         return None
 
     except acoustid.WebServiceError as web_service_error:
-        logging.warning(f"There was an error probably a network one {web_service_error}")
+        print(f"WARNING: There was an error probably a network one {web_service_error}")
         return web_service_error
 
 
