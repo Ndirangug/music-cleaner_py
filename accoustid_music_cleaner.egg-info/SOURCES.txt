@@ -1,7 +1,7 @@
 README.md
 setup.py
 accoustid_music_cleaner/__init__.py
-accoustid_music_cleaner/__main__.py
+accoustid_music_cleaner/main.py
 accoustid_music_cleaner.egg-info/PKG-INFO
 accoustid_music_cleaner.egg-info/SOURCES.txt
 accoustid_music_cleaner.egg-info/dependency_links.txt
