@@ -3,3 +3,4 @@ test-res/
 **/__pycache__
 build/
 dist/
+logfile
