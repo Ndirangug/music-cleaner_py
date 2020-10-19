@@ -1,8 +1,7 @@
 import logging
 from typing import Optional
-
 import acoustid
-from beeprint import pp
+
 
 import search.accoustid.accoustid_search as accoustid
 import utils.directory_loader as dloader
@@ -10,11 +9,19 @@ from musicfile.musicfile import MusicFile
 from utils.post_search import on_success
 from utils.queue import Queue, QueueItemStatus
 
+import sys
+
 directories = [
     # "/media/georgen/LOCAL DISK/George_Ndirangu/Music/",
     # "/media/georgen/LOCAL DISK/George_Ndirangu/Videos/Music/",
-    "/media/georgen/LOCAL DISK/George_Ndirangu/Learning/py/music-cleaner/test-res/tinker"
+    # "/media/georgen/LOCAL DISK/George_Ndirangu/Learning/py/music-cleaner/test-res/tinker"
 ]
+
+for i, arg in enumerate(sys.argv):
+    if i == 0:
+        continue
+    directories.append(arg)
+
 list_of_paths = []
 completed = []
 failed = []
@@ -56,7 +63,7 @@ for item in processing_queue.get_items():
 
 print()
 print("completed...........")
-pp(completed)
+logging.warning(completed)
 print()
 print("failed...........")
-pp(failed)
+logging.warning(failed)

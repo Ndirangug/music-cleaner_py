@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/music-cleaner.iml" filepath="$PROJECT_DIR$/music-cleaner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/accoustid_music_cleaner/.pytest_cache/.pytest_cache.iml" filepath="$PROJECT_DIR$/accoustid_music_cleaner/.pytest_cache/.pytest_cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/accoustid-music-cleaner.iml" filepath="$PROJECT_DIR$/accoustid-music-cleaner.iml" />
     </modules>
   </component>
 </project>

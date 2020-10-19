@@ -12,7 +12,7 @@ def validate_result(result, fragment, fragments):
 
     try:
         for recording in result['recording-list']:
-            title = recording["title"].lower()
+            title = recording["title"].lower().split("feat", 1)[0]
             recording_score = int(recording['ext:score'])
 
             if len(title.split(' ')) >= 3:

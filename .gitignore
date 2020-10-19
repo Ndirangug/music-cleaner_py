@@ -1,3 +1,5 @@
 test-res/
 .pytest_cache
 **/__pycache__
+build/
+dist/

@@ -88,7 +88,7 @@ def check_album_match(recording, fragments):
 
 
 def check_album_artist_title_match(recording, fragments):
-    title = recording["title"].lower()
+    title = recording["title"].lower().split("feat", 1)[0]
 
     title_matches_fragments = check_title_match(title, fragments, threshold=1)
     artist_matches_fragments, matches_found_artist = check_artist_match(recording, fragments)

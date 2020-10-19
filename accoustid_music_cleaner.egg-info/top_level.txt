@@ -1,0 +1,7 @@
+accoustid_music_cleaner
+musicfile
+search
+tagreader
+tagwriter
+test
+utils
